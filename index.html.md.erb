@@ -1,0 +1,47 @@
+---
+title: Managing Service Instances
+---
+
+After adding a service to your Application, you'll eventually need to manage the service. Managing can be creating data tables in a database or backup/restore your data.
+For that use case we created the Cloud Foundry CLI Plugin Service Connector which is a local proxy app with that you will be able to connect to your service with you preferred local tools.
+
+## <a id='installation-service-connector'></a> Install service connector
+Windows:
+
+install the newest version of the CLI (at least version 6.11.2 is required)
+download the Swisscom Plugin into a folder (see url in the “Binaries” section below)
+install the Swisscom Plugin into the CLI with the "cf install-plugin" command, e.g.: `cf install-plugin c:\downloads\swisscom-plugin.exe`
+
+
+Linux/OSX:
+install the newest version of the CLI (at least version 6.11.2 is required)
+<pre class="terminal">
+$ cf install-plugin https://swisscom-plugin.scapp.io/mac64/swisscom-plugin
+
+Attempting to download binary file from internet address...
+8592672 bytes downloaded...
+Installing plugin /var/folders/kl/lmmcb8393nb5pnl7cp2c_kgw0000gn/T/swisscom-plugin...
+OK
+Plugin SwisscomPlugin v1.0.2 successfully installed.
+</pre>
+
+Download specific binaries for your preferred system.
+
+* Windows 32 bit: https://swisscom-plugin.scapp.io/windows32/swisscom-plugin.exe
+* Windows 64 bit: https://swisscom-plugin.scapp.io/windows64/swisscom-plugin.exe
+* OSX 64bit: https://swisscom-plugin.scapp.io/mac64/swisscom-plugin
+* Linux 32 bit: https://swisscom-plugin.scapp.io/linux32/swisscom-plugin
+* Linux 64 bit: https://swisscom-plugin.scapp.io/linux64/swisscom-plugin
+
+
+## <a id='usage-service-connector'></a> Using service connector
+
+Steps for connecting to a running service:
+
+1. Log into the CLI using `cf login`.
+2. Create a service-key for the respective service instance by using `cf create-service-key <service-instance-name> mykey`.
+3. Retrieve your service key's credentials using `cf service-key <service-instance-name> mykey`.
+4. Start the client and define a local port and the location of the service (host:port or ip:port), e.g. `cf service-connector 13000 asdfjlkasd.service.consul:3000`.
+5. Connect your management console to the port the client is listening on, e.g. `localhost:13000` and log in with the service instance credentials.
+
+If you are working behind a corporate proxy, set the http\_proxy environment variable, e.g. `http_proxy=proxy.corproot.net:8079` . For more information type `cf service-connector -h` in the prompt.
