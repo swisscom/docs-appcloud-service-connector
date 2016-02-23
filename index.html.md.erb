@@ -1,20 +1,24 @@
 ---
-title: Service Connector
+title: Administrating Service Instances with Service Connector
 ---
 
-After adding a service to your Application, you'll eventually need to manage the service. Managing can be creating data tables in a database or backup/restore your data.
-For that use case we created the Cloud Foundry CLI Plugin Service Connector which is a local proxy app with that you will be able to connect to your service with you preferred local tools.
+After creating a service instance, you'll eventually need to administrate the service. For example you might need to create data tables in a database or backup/restore your data.
+For these use cases, we created the Cloud Foundry CLI Plugin Service Connector which is a local proxy app through which you can connect to your service instances using your preferred locally installed tools.
 
-## <a id='installation-service-connector'></a> Install service connector
-Windows:
+## <a id='installation-service-connector'></a> Installing Service Connector
 
-install the newest version of the CLI (at least version 6.11.2 is required)
-download the Swisscom Plugin into a folder (see url in the “Binaries” section below)
-install the Swisscom Plugin into the CLI with the "cf install-plugin" command, e.g.: `cf install-plugin c:\downloads\swisscom-plugin.exe`
+### Windows:
+1. Install the latest version of the CLI (version 6.11.2 or newer is required)
 
+2. Download the Service Connector plugin into a folder (see url in the “Binaries” section below)
 
-Linux/OSX:
-install the newest version of the CLI (at least version 6.11.2 is required)
+3. Install the plugin into the CLI using the `cf install-plugin` command.
+E.g.: `cf install-plugin c:\downloads\swisscom-plugin.exe`
+
+### Linux / Mac OS X:
+1. Install the latest version of the CF CLI (version 6.11.2 or newer is required)
+
+2. Run the following command:
 <pre class="terminal">
 $ cf install-plugin https://swisscom-plugin.scapp.io/mac64/swisscom-plugin
 
@@ -25,16 +29,14 @@ OK
 Plugin SwisscomPlugin v1.0.4 successfully installed.
 </pre>
 
-Download specific binaries for your preferred system.
+### Binaries
+* Windows 32-bit: [https://swisscom-plugin.scapp.io/windows32/swisscom-plugin.exe](https://swisscom-plugin.scapp.io/windows32/swisscom-plugin.exe)
+* Windows 64-bit: [https://swisscom-plugin.scapp.io/windows64/swisscom-plugin.exe](https://swisscom-plugin.scapp.io/windows64/swisscom-plugin.exe)
+* OSX 64-bit: [https://swisscom-plugin.scapp.io/mac64/swisscom-plugin](https://swisscom-plugin.scapp.io/mac64/swisscom-plugin)
+* Linux 32-bit: [https://swisscom-plugin.scapp.io/linux32/swisscom-plugin](https://swisscom-plugin.scapp.io/linux32/swisscom-plugin)
+* Linux 64-bit: [https://swisscom-plugin.scapp.io/linux64/swisscom-plugin](https://swisscom-plugin.scapp.io/linux64/swisscom-plugin)
 
-* Windows 32 bit: https://swisscom-plugin.scapp.io/windows32/swisscom-plugin.exe
-* Windows 64 bit: https://swisscom-plugin.scapp.io/windows64/swisscom-plugin.exe
-* OSX 64bit: https://swisscom-plugin.scapp.io/mac64/swisscom-plugin
-* Linux 32 bit: https://swisscom-plugin.scapp.io/linux32/swisscom-plugin
-* Linux 64 bit: https://swisscom-plugin.scapp.io/linux64/swisscom-plugin
-
-
-## <a id='usage-service-connector'></a> Using service connector
+## <a id='usage-service-connector'></a> Using Service Connector
 
 Steps for connecting to a running service:
 
