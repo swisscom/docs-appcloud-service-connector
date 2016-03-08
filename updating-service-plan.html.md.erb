@@ -36,9 +36,9 @@ Application development and maintenance on PaaS sometimes requires updating a se
       }
     </pre>
 
-2. Create a tunnel using [Service Connector](../service-connector/index.html#using-service-connector).
+2. Create a tunnel using [Service Connector](../service-connector/index.html#using-service-connector). i.e: 'cf sc 49099 y4alksjwoinlx2.service.consul:49099'
 
-3. Back up your data: `mongodump --host localhost --port 43526 --db WwsTedBX1U8JSKkU --out=dbbackup/dump --username U53rN4m3 --password P455w0rD`
+3. Back up your data: `mongodump --host 127.0.0.1:49022 --authenticationDatabase D4T4B453 --username U53rN4m3 --password P455w0rD --db 1PNxGDOCifaaHnr5 --out=dbbackup/dump`
 
 4. [Create](../devguide/services/managing-services.html#create) a new Service.
 
@@ -74,8 +74,8 @@ Application development and maintenance on PaaS sometimes requires updating a se
       }
     </pre>
 
-7. Create a tunnel to the new service using [Service Connector](../service-connector/index.html#using-service-connector).
+7. Create a tunnel to the new service using [Service Connector](../service-connector/index.html#using-service-connector). `cf sc 50000 joiw209fnj2jx2.service.consul:50000`
 
-8. Restore your data: `mongorestore --host 127.0.0.1:3067 -u U53rN4m3 -p P455w0rD --db db dbbackup/dump`
+8. Restore your data, with mongodb i.e.: `mongorestore --host 127.0.0.1:50000 --authenticationDatabase D4T4B453 --username U53rN4m3 --password P455w0rD --db D4T4B453 dbbackup/dump/D4T4B453/`
 
-9. Delete the old service.
+9. Delete your old service instance.
