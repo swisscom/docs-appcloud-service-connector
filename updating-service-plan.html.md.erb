@@ -1,0 +1,81 @@
+---
+title: Updating Service Plan
+---
+
+_This page assumes you are using cf CLI v6._
+
+Application development and maintenance on PaaS sometimes requires updating a service plan due to a new service's availability, soem services being withdrawn from availability or other events on the Platform. This topic describes the best way to Update a Service Plan on the Application Cloud platform.
+
+1. Run `cf env` and obtain your database credentials by searching in the `VCAP_SERVICES` environment variable:
+
+    <pre class="terminal">
+    $ cf env db-app
+    Getting env variables for app my-db-app in org My-Org / space development as admin...
+    OK
+
+    System-Provided:
+    {
+      "VCAP_SERVICES": {
+        "example-db-n/a": [
+          {
+            "name": "test-777",
+            "label": "example-db-n",
+            "tags": ["mysql","relational"],
+            "plan": "basic",
+            "credentials" : {
+              "jdbcUrl": "jdbcmysql://aa11:2b@cdbr-05.example.net:3306/ad_01",
+              "uri": "mysql://aa11:2b@cdbr-05.example.net:	34/ad_01?reconnect=true",
+              "name": "ad_01",
+              "hostname": "cdbr-05.example.net",
+              "port": "1234",
+              "username": "aa11",
+              "password": "2b"
+            }
+          }
+        ]
+      }
+    </pre>
+
+2. Create a tunnel using [Service Connector](../service-connector/index.html#using-service-connector).
+
+3. Back up your data: `mongodump --host localhost --port 43526 --db WwsTedBX1U8JSKkU --out=dbbackup/dump --username U53rN4m3 --password P455w0rD`
+
+4. [Create](../devguide/services/managing-services.html#create) a new Service.
+
+5. [Bind](../devguide/services/application-binding.html#bind) that service to your application or create [service-keys](../devguide/services/service-keys.html#create).
+
+6. Run `cf env` again, to obtain your new database credentials by searching in the `VCAP_SERVICES` environment variable:
+
+    <pre class="terminal">
+    $ cf env db-app
+    Getting env variables for app my-db-app in org My-Org / space development as admin...
+    OK
+
+    System-Provided:
+    {
+      "VCAP_SERVICES": {
+        "example-db-n/a": [
+          {
+            "name": "test-777",
+            "label": "example-db-n",
+            "tags": ["mysql","relational"],
+            "plan": "basic",
+            "credentials" : {
+              "jdbcUrl": "jdbcmysql://aa11:2b@cdbr-05.example.net:3306/ad_01",
+              "uri": "mysql://aa11:2b@cdbr-05.example.net:	34/ad_01?reconnect=true",
+              "name": "ad_01",
+              "hostname": "cdbr-05.example.net",
+              "port": "1234",
+              "username": "aa11",
+              "password": "2b"
+            }
+          }
+        ]
+      }
+    </pre>
+
+7. Create a tunnel to the new service using [Service Connector](../service-connector/index.html#using-service-connector).
+
+8. Restore your data: `mongorestore --host 127.0.0.1:3067 -u U53rN4m3 -p P455w0rD --db db dbbackup/dump`
+
+9. Delete the old service.
