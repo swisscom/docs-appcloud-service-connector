@@ -4,12 +4,12 @@ title: Updating a Service Plan
 
 _This page assumes you are using cf CLI v6._
 
-Application development and maintenance on PaaS sometimes requires updating a service plan due to a new service's availability, soem services being withdrawn from availability or other events on the Platform. This topic describes the best way to Update a Service Plan on the Application Cloud platform.
+Application development and maintenance on a PaaS sometimes requires updating a service plan due to a new service's availability, some services being withdrawn from availability or other events on the platform. This article describes the best way to update a service plan on the Application Cloud platform.
 
-1. Run `cf env` and obtain your database credentials by searching in the `VCAP_SERVICES` environment variable:
+1. Run the `cf env` command and obtain your database credentials by searching in the `VCAP_SERVICES` environment variable:
 
     <pre class="terminal">
-    $ cf env db-app
+    $ cf env my-db-app
     Getting env variables for app my-db-app in org My-Org / space development as admin...
     OK
 
@@ -36,18 +36,18 @@ Application development and maintenance on PaaS sometimes requires updating a se
       }
     </pre>
 
-2. Create a tunnel using [Service Connector](../service-connector/index.html#using-service-connector). i.e: 'cf sc 49099 y4alksjwoinlx2.service.consul:49099'
+2. Create a tunnel using [Service Connector](../service-connector/index.html#using-service-connector). E.g. `cf service-connector 49099 y4alksjwoinlx2.service.consul:49099`
 
-3. Back up your data: `mongodump --host 127.0.0.1:49022 --authenticationDatabase D4T4B453 --username U53rN4m3 --password P455w0rD --db 1PNxGDOCifaaHnr5 --out=dbbackup/dump`
+3. Back up your data (using MongoDB as an example): `mongodump --host 127.0.0.1:49022 --authenticationDatabase D4T4B453 --username U53rN4m3 --password P455w0rD --db 1PNxGDOCifaaHnr5 --out=dbbackup/dump`
 
-4. [Create](../devguide/services/managing-services.html#create) a new Service.
+4. [Create](../devguide/services/managing-services.html#create) a new service.
 
 5. [Bind](../devguide/services/application-binding.html#bind) that service to your application or create [service-keys](../devguide/services/service-keys.html#create).
 
-6. Run `cf env` again, to obtain your new database credentials by searching in the `VCAP_SERVICES` environment variable:
+6. Run the `cf env` command again, to obtain your new database credentials by searching in the `VCAP_SERVICES` environment variable:
 
     <pre class="terminal">
-    $ cf env db-app
+    $ cf env my-db-app
     Getting env variables for app my-db-app in org My-Org / space development as admin...
     OK
 
@@ -74,8 +74,8 @@ Application development and maintenance on PaaS sometimes requires updating a se
       }
     </pre>
 
-7. Create a tunnel to the new service using [Service Connector](../service-connector/index.html#using-service-connector). `cf sc 50000 joiw209fnj2jx2.service.consul:50000`
+7. Create a tunnel to the new service using [Service Connector](../service-connector/index.html#using-service-connector). E.g. `cf service-connector 50000 joiw209fnj2jx2.service.consul:50000`
 
-8. Restore your data, with mongodb i.e.: `mongorestore --host 127.0.0.1:50000 --authenticationDatabase D4T4B453 --username U53rN4m3 --password P455w0rD --db D4T4B453 dbbackup/dump/D4T4B453/`
+8. Restore your data, (example with MongoDB): `mongorestore --host 127.0.0.1:50000 --authenticationDatabase D4T4B453 --username U53rN4m3 --password P455w0rD --db D4T4B453 dbbackup/dump/D4T4B453/`
 
 9. Delete your old service instance.
