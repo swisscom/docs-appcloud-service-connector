@@ -10,33 +10,34 @@ Application development and maintenance on a PaaS sometimes requires updating a 
 
 1. Run the `cf env` command and obtain your database credentials by searching in the `VCAP_SERVICES` environment variable:
 
-    <pre class="terminal">
-    $ cf env my-db-app
-    Getting env variables for app my-db-app in org My-Org / space development as admin...
-    OK
+<pre class="terminal">
+  $ cf env my-db-app
+  Getting env variables for app my-db-app in org My-Org / space development as admin...
+  OK
 
-    System-Provided:
-    {
-      "VCAP_SERVICES": {
-        "example-db-n/a": [
-          {
-            "name": "test-777",
-            "label": "example-db-n",
-            "tags": ["mysql","relational"],
-            "plan": "basic",
-            "credentials" : {
-              "jdbcUrl": "jdbcmysql://aa11:2b@cdbr-05.example.net:3306/ad_01",
-              "uri": "mysql://aa11:2b@cdbr-05.example.net:	34/ad_01?reconnect=true",
-              "name": "ad_01",
-              "hostname": "cdbr-05.example.net",
-              "port": "1234",
-              "username": "aa11",
-              "password": "2b"
-            }
+  System-Provided:
+  {
+    "VCAP_SERVICES": {
+      "example-db-n/a": [
+        {
+          "name": "test-777",
+          "label": "example-db-n",
+          "tags": ["mysql","relational"],
+          "plan": "basic",
+          "credentials" : {
+            "jdbcUrl": "jdbcmysql://aa11:2b@cdbr-05.example.net:3306/ad_01",
+            "uri": "mysql://aa11:2b@cdbr-05.example.net:	34/ad_01?reconnect=true",
+            "name": "ad_01",
+            "hostname": "cdbr-05.example.net",
+            "port": "1234",
+            "username": "aa11",
+            "password": "2b"
           }
-        ]
-      }
-    </pre>
+        }
+      ]
+    }
+  }
+</pre>
 
 2. Create a tunnel using [Service Connector](../service-connector/index.html#using-service-connector). E.g. `cf service-connector 49099 y4alksjwoinlx2.service.consul:49099`
 
@@ -48,33 +49,34 @@ Application development and maintenance on a PaaS sometimes requires updating a 
 
 6. Run the `cf env` command again, to obtain your new database credentials by searching in the `VCAP_SERVICES` environment variable:
 
-    <pre class="terminal">
-    $ cf env my-db-app
-    Getting env variables for app my-db-app in org My-Org / space development as admin...
-    OK
+<pre class="terminal">
+  $ cf env my-db-app
+  Getting env variables for app my-db-app in org My-Org / space development as admin...
+  OK
 
-    System-Provided:
-    {
-      "VCAP_SERVICES": {
-        "example-db-n/a": [
-          {
-            "name": "test-777",
-            "label": "example-db-n",
-            "tags": ["mysql","relational"],
-            "plan": "basic",
-            "credentials" : {
-              "jdbcUrl": "jdbcmysql://aa11:2b@cdbr-05.example.net:3306/ad_01",
-              "uri": "mysql://aa11:2b@cdbr-05.example.net:	34/ad_01?reconnect=true",
-              "name": "ad_01",
-              "hostname": "cdbr-05.example.net",
-              "port": "1234",
-              "username": "aa11",
-              "password": "2b"
-            }
+  System-Provided:
+  {
+    "VCAP_SERVICES": {
+      "example-db-n/a": [
+        {
+          "name": "test-777",
+          "label": "example-db-n",
+          "tags": ["mysql","relational"],
+          "plan": "basic",
+          "credentials" : {
+            "jdbcUrl": "jdbcmysql://aa11:2b@cdbr-05.example.net:3306/ad_01",
+            "uri": "mysql://aa11:2b@cdbr-05.example.net:	34/ad_01?reconnect=true",
+            "name": "ad_01",
+            "hostname": "cdbr-05.example.net",
+            "port": "1234",
+            "username": "aa11",
+            "password": "2b"
           }
-        ]
-      }
-    </pre>
+        }
+      ]
+    }
+  }
+</pre>
 
 7. Create a tunnel to the new service using [Service Connector](../service-connector/index.html#using-service-connector). E.g. `cf service-connector 50000 joiw209fnj2jx2.service.consul:50000`
 
